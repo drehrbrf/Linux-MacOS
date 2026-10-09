@@ -1,0 +1,16 @@
+name: Get macOS libcxx
+on: [push, workflow_dispatch]
+jobs:
+  extract:
+    runs-on: macos-13  # สั่งเปิดเครื่อง Mac x86_64 บนระบบคลาวด์ฟรี
+    steps:
+      - name: Zip C++ Runtime
+        run: |
+          mkdir -p output
+          cp /usr/lib/libc++.1.dylib output/
+          cp /usr/lib/libc++abi.dylib output/
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-libcxx
+          path: output/
